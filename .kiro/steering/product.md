@@ -3,7 +3,7 @@
 ProjectDashBoard is a web-based application that provides two complementary ways to interact with JIRA project data:
 
 1. **Visual Dashboard** — at-a-glance charts, metrics, and status views
-2. **Conversational Chat** — natural language Q&A powered by an LLM with JIRA tool access
+2. **Conversational Chat** — natural language Q&A powered by an AI agent with MCP-based JIRA tool access
 
 ## Purpose
 
@@ -16,7 +16,7 @@ ProjectDashBoard is a web-based application that provides two complementary ways
 
 - All project data is fetched from JIRA via the JIRA REST API
 - Dashboard reflects near-real-time state of JIRA boards and projects
-- Chat uses LLM tool-calling to query JIRA dynamically based on user questions
+- Chat uses an MCP Server that exposes JIRA operations as discoverable tools, invoked dynamically by an AI agent
 
 ## Target Users
 
@@ -35,14 +35,30 @@ ProjectDashBoard is a web-based application that provides two complementary ways
 
 ### Conversational Chat (Phase 4-5)
 - Ask questions about JIRA data in natural language
-- LLM invokes JIRA tools dynamically to answer queries
+- AI agent uses an MCP Client to connect to a JIRA MCP Server
+- MCP Server exposes JIRA operations as tools (get_projects, search_issues, get_sprint_status, etc.)
+- Agent discovers and invokes tools dynamically via the MCP protocol
 - Context-aware follow-up questions within a session
 - Embedded alongside the dashboard for unified experience
+
+## Architecture Overview
+
+### Phase 1-3: Dashboard
+```
+Browser → Next.js API Routes (proxy) → JIRA REST API
+```
+
+### Phase 4-5: Chat
+```
+Browser → /api/chat → AI Agent + MCP Client → MCP Server (JIRA) → JIRA REST API
+```
+
+The JIRA service layer (auth, caching, data transformation) is shared between the dashboard API routes and the MCP Server.
 
 ## Development Phases
 
 1. Project setup and JIRA API connection
 2. Visual dashboard with charts and filters
 3. UX polish and production readiness
-4. Conversational chat with LLM + tool-use
+4. Conversational chat with AI agent + MCP Client/Server
 5. Unified dashboard + chat integration
