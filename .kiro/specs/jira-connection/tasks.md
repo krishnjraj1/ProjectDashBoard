@@ -28,14 +28,14 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - _Requirements: 1.3_
 
 - [ ] 2. Implement JIRA service layer (`lib/jira/`)
-  - [ ] 2.1 Implement config validation module (`lib/jira/config.ts`)
+  - [x] 2.1 Implement config validation module (`lib/jira/config.ts`)
     - Create `JiraConfig` interface with `baseUrl`, `email`, `apiToken` fields
     - Implement `validateConfig()` function that reads from `process.env`
     - Validate `JIRA_BASE_URL` starts with `https://`, `JIRA_EMAIL` is non-empty, `JIRA_API_TOKEN` is non-empty
     - Return structured error naming the first invalid/missing variable on failure
     - _Requirements: 2.1, 2.4, 2.5_
 
-  - [ ]* 2.2 Write property test for config validation (Property 1)
+  - [x] 2.2 Write property test for config validation (Property 1)
     - **Property 1: Config validation correctness**
     - Generate arbitrary strings for URL/email/token including empty strings, whitespace, non-https URLs
     - Assert: returns valid config iff URL starts with `https://`, email non-empty, token non-empty; else returns error naming invalid variable
