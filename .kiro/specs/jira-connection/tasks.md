@@ -14,12 +14,12 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Verify `npm run build` completes with exit code 0
     - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5, 1.6_
 
-  - [ ] 1.2 Set up environment configuration and .gitignore
+  - [x] 1.2 Set up environment configuration and .gitignore
     - Create `.env.local.example` with placeholder keys: `JIRA_BASE_URL=`, `JIRA_EMAIL=`, `JIRA_API_TOKEN=` and descriptive comments
     - Ensure `.gitignore` excludes `.env.local`
     - _Requirements: 2.2, 2.3_
 
-  - [ ] 1.3 Set up Vitest and fast-check testing infrastructure
+  - [x] 1.3 Set up Vitest and fast-check testing infrastructure
     - Install `vitest`, `@vitejs/plugin-react`, `fast-check`, and `@testing-library/react` as dev dependencies
     - Create `vitest.config.ts` at project root configured for TypeScript and React
     - Create `__tests__/unit/` and `__tests__/integration/` directories
