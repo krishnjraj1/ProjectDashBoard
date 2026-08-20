@@ -41,7 +41,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Assert: returns valid config iff URL starts with `https://`, email non-empty, token non-empty; else returns error naming invalid variable
     - **Validates: Requirements 2.1, 2.4**
 
-  - [ ] 2.3 Implement auth header construction and JIRA client (`lib/jira/client.ts`)
+  - [x] 2.3 Implement auth header construction and JIRA client (`lib/jira/client.ts`)
     - Implement `createAuthHeader(email, apiToken)` producing `"Basic " + base64(email + ":" + token)`
     - Implement `jiraFetch<T>(path, options?)` using native `fetch` with `AbortController` (10s timeout)
     - Handle timeout (AbortError → 502), network errors (→ 502), and JIRA HTTP errors (→ sanitized)
