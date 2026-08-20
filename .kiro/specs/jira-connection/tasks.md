@@ -7,7 +7,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
 ## Tasks
 
 - [ ] 1. Scaffold Next.js project and configure tooling
-  - [ ] 1.1 Initialize Next.js project with TypeScript and Tailwind CSS
+  - [x] 1.1 Initialize Next.js project with TypeScript and Tailwind CSS
     - Run `npx create-next-app@latest` with App Router, TypeScript, Tailwind CSS, and ESLint enabled
     - Verify `app/` directory with `layout.tsx`, `tsconfig.json`, and `tailwind.config.ts` exist
     - Verify `package.json` lists Next.js, React, TypeScript, and Tailwind CSS as dependencies
