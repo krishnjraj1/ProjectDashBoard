@@ -168,7 +168,7 @@ describe("GET /api/jira/issues", () => {
     await GET(createRequest("/api/jira/issues?projectKey=MYPROJ"));
 
     expect(jiraFetch).toHaveBeenCalledWith(
-      "/rest/api/3/search/jql?jql=project=MYPROJ&maxResults=50"
+      `/rest/api/3/search/jql?jql=${encodeURIComponent("project=MYPROJ")}&maxResults=50&fields=${encodeURIComponent("summary,status")}`
     );
   });
 });

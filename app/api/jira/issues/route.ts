@@ -20,8 +20,10 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  const jql = encodeURIComponent(`project=${projectKey}`);
+  const fields = encodeURIComponent("summary,status");
   const result = await jiraFetch<JiraApiSearchResponse>(
-    `/rest/api/3/search/jql?jql=project=${projectKey}&maxResults=50`
+    `/rest/api/3/search/jql?jql=${jql}&maxResults=50&fields=${fields}`
   );
 
   if (result.error) {
