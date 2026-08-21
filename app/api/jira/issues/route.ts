@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
   }
 
   const result = await jiraFetch<JiraApiSearchResponse>(
-    `/rest/api/3/search?jql=project=${projectKey}&maxResults=50`
+    `/rest/api/3/search/jql?jql=project=${projectKey}&maxResults=50`
   );
 
   if (result.error) {
