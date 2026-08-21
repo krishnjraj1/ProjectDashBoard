@@ -47,7 +47,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Handle timeout (AbortError → 502), network errors (→ 502), and JIRA HTTP errors (→ sanitized)
     - _Requirements: 3.4, 3.7_
 
-  - [ ]* 2.4 Write property test for auth header construction (Property 2)
+  - [x] 2.4 Write property test for auth header construction (Property 2)
     - **Property 2: Auth header construction**
     - Generate arbitrary non-empty strings for email and token
     - Assert: result equals `"Basic " + base64(email + ":" + token)` and decoding yields original `email:token`
