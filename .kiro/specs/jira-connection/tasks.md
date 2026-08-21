@@ -6,7 +6,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
 
 ## Tasks
 
-- [ ] 1. Scaffold Next.js project and configure tooling
+- [x] 1. Scaffold Next.js project and configure tooling
   - [x] 1.1 Initialize Next.js project with TypeScript and Tailwind CSS
     - Run `npx create-next-app@latest` with App Router, TypeScript, Tailwind CSS, and ESLint enabled
     - Verify `app/` directory with `layout.tsx`, `tsconfig.json`, and `tailwind.config.ts` exist
@@ -27,7 +27,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Verify `npm test` runs successfully (no tests yet, but exits cleanly)
     - _Requirements: 1.3_
 
-- [ ] 2. Implement JIRA service layer (`lib/jira/`)
+- [x] 2. Implement JIRA service layer (`lib/jira/`)
   - [x] 2.1 Implement config validation module (`lib/jira/config.ts`)
     - Create `JiraConfig` interface with `baseUrl`, `email`, `apiToken` fields
     - Implement `validateConfig()` function that reads from `process.env`
@@ -53,68 +53,68 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Assert: result equals `"Basic " + base64(email + ":" + token)` and decoding yields original `email:token`
     - **Validates: Requirements 3.4**
 
-  - [ ] 2.5 Implement error sanitization (`lib/jira/errors.ts`)
+  - [x] 2.5 Implement error sanitization (`lib/jira/errors.ts`)
     - Create `SanitizedError` interface with `status` and `message` fields
     - Implement `sanitizeJiraError(jiraStatus, rawMessage)` mapping: 401→401, 403→403, 404→404, 429→429, 5xx→502
     - Use predefined message strings, never include raw JIRA response body
     - Log raw error details server-side at `warn` level
     - _Requirements: 3.6_
 
-  - [ ]* 2.6 Write property test for sanitized error mapping (Property 4)
+  - [x] 2.6 Write property test for sanitized error mapping (Property 4)
     - **Property 4: Sanitized error mapping**
     - Generate integer status codes in 400–599 range and arbitrary raw message strings
     - Assert: returned status matches expected mapping and returned message does NOT contain the raw JIRA message
     - **Validates: Requirements 3.6**
 
-  - [ ] 2.7 Implement projectKey validation (`lib/jira/validation.ts`)
+  - [x] 2.7 Implement projectKey validation (`lib/jira/validation.ts`)
     - Implement `isValidProjectKey(key)` validating against `/^[A-Z][A-Z0-9_]{1,9}$/`
     - Reject empty, lowercase, special characters, too-short (1 char), and too-long (>10 chars) keys
     - _Requirements: 3.8_
 
-  - [ ]* 2.8 Write property test for parameter validation (Property 5)
+  - [x] 2.8 Write property test for parameter validation (Property 5)
     - **Property 5: Missing or invalid parameter validation**
     - Generate arbitrary strings including empty, lowercase, special chars, too-long, and valid keys
     - Assert: `isValidProjectKey` returns true only for strings matching `/^[A-Z][A-Z0-9_]{1,9}$/`
     - **Validates: Requirements 3.8**
 
-  - [ ] 2.9 Implement types and transformation functions (`lib/jira/types.ts`)
+  - [x] 2.9 Implement types and transformation functions (`lib/jira/types.ts`)
     - Define `JiraProject`, `JiraBoard`, `JiraIssue`, `HealthStatus` interfaces
     - Implement `transformProjects(raw)`, `transformBoards(raw)`, `transformIssues(raw)` extracting only needed fields
     - `transformIssues` caps output at 50 items maximum
     - _Requirements: 3.1, 3.2, 3.3_
 
-  - [ ]* 2.10 Write property test for issue response capping (Property 3)
+  - [x] 2.10 Write property test for issue response capping (Property 3)
     - **Property 3: Issue response capping**
     - Generate arrays of 0–200 mock issue objects
     - Assert: output length ≤ 50 and each item contains exactly `key`, `summary`, `status` fields
     - **Validates: Requirements 3.3**
 
-- [ ] 3. Checkpoint — Verify service layer
+- [x] 3. Checkpoint — Verify service layer
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 4. Implement API route handlers (`app/api/jira/`)
-  - [ ] 4.1 Implement health endpoint (`app/api/jira/health/route.ts`)
+- [x] 4. Implement API route handlers (`app/api/jira/`)
+  - [x] 4.1 Implement health endpoint (`app/api/jira/health/route.ts`)
     - Create GET handler that calls `GET /rest/api/3/myself` via `jiraFetch`
     - Return `{ status: "connected", baseUrl }` on success (200)
     - Return `{ status: "disconnected", error }` on failure (503)
     - Set `Content-Type: application/json`
     - _Requirements: 7.1, 7.3, 7.4, 7.5_
 
-  - [ ] 4.2 Implement projects endpoint (`app/api/jira/projects/route.ts`)
+  - [x] 4.2 Implement projects endpoint (`app/api/jira/projects/route.ts`)
     - Create GET handler that calls `GET /rest/api/3/project` via `jiraFetch`
     - Transform response using `transformProjects` and return JSON array
     - Handle config validation errors (500), JIRA errors (mapped), and timeouts (502)
     - Set `Content-Type: application/json`
     - _Requirements: 3.1, 3.4, 3.5, 3.6, 3.7_
 
-  - [ ] 4.3 Implement boards endpoint (`app/api/jira/boards/route.ts`)
+  - [x] 4.3 Implement boards endpoint (`app/api/jira/boards/route.ts`)
     - Create GET handler that calls `GET /rest/agile/1.0/board` via `jiraFetch`
     - Transform response using `transformBoards` and return JSON array
     - Handle config validation errors (500), JIRA errors (mapped), and timeouts (502)
     - Set `Content-Type: application/json`
     - _Requirements: 3.2, 3.4, 3.5, 3.6, 3.7_
 
-  - [ ] 4.4 Implement issues endpoint (`app/api/jira/issues/route.ts`)
+  - [x] 4.4 Implement issues endpoint (`app/api/jira/issues/route.ts`)
     - Create GET handler that extracts `projectKey` query parameter
     - Validate `projectKey` with `isValidProjectKey` — return 400 if missing/invalid
     - Call `GET /rest/api/3/search?jql=project={key}&maxResults=50` via `jiraFetch`
@@ -123,7 +123,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Set `Content-Type: application/json`
     - _Requirements: 3.3, 3.4, 3.5, 3.6, 3.7, 3.8_
 
-  - [ ]* 4.5 Write unit tests for API route handlers
+  - [x] 4.5 Write unit tests for API route handlers
     - Test health endpoint returns connected/disconnected correctly
     - Test projects/boards endpoints transform and return data
     - Test issues endpoint validates projectKey and returns 400 for invalid input
@@ -131,11 +131,11 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Test timeout handling returns 502
     - _Requirements: 2.4, 3.1, 3.2, 3.3, 3.6, 3.7, 3.8_
 
-- [ ] 5. Checkpoint — Verify API routes
+- [x] 5. Checkpoint — Verify API routes
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 6. Implement Connection Page UI
-  - [ ] 6.1 Implement StatusBadge component
+- [x] 6. Implement Connection Page UI
+  - [x] 6.1 Implement StatusBadge component
     - Create client component that calls `GET /api/jira/health` on mount with 10s timeout
     - Display "Checking..." (neutral badge) while request is in progress
     - Display green badge with "Connected" on 2xx response
@@ -144,7 +144,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Style with Tailwind CSS
     - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
-  - [ ] 6.2 Implement ProjectsSection component
+  - [x] 6.2 Implement ProjectsSection component
     - Create client component that fetches `GET /api/jira/projects` on mount
     - Display loading skeleton while fetching
     - Display each project's key and name in a table/list on success
@@ -153,7 +153,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Display "No projects found" message when array is empty
     - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5_
 
-  - [ ] 6.3 Implement BoardsSection component
+  - [x] 6.3 Implement BoardsSection component
     - Create client component that fetches `GET /api/jira/boards` on mount
     - Display loading skeleton while fetching
     - Display each board's name and type in a table/list on success
@@ -161,7 +161,7 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Display "No boards found" message when array is empty
     - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5_
 
-  - [ ] 6.4 Implement IssuesSection component
+  - [x] 6.4 Implement IssuesSection component
     - Create client component that accepts `selectedProjectKey` prop
     - Display "Select a project to view issues" prompt when no project selected
     - Fetch `GET /api/jira/issues?projectKey={key}` when project is selected
@@ -171,21 +171,21 @@ This plan implements ProjectDashBoard Phase 1: scaffolding the Next.js project, 
     - Display "No issues found for this project" message when array is empty
     - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6_
 
-  - [ ] 6.5 Compose Connection Page (`app/page.tsx`)
+  - [x] 6.5 Compose Connection Page (`app/page.tsx`)
     - Assemble `StatusBadge`, `ProjectsSection`, `BoardsSection`, and `IssuesSection` into main page
     - Manage `selectedProjectKey` state, pass to IssuesSection
     - Each section fetches independently; a failed section does not block others
     - Apply Tailwind CSS layout (responsive grid/stack)
     - _Requirements: 4.1, 5.1, 6.1, 7.1_
 
-  - [ ]* 6.6 Write unit tests for UI components
+  - [x] 6.6 Write unit tests for UI components
     - **Property 6: Data rendering completeness** — verify rendered output contains all required fields for projects, boards, issues
     - **Property 7: Error message display** — verify error messages appear in visually distinct containers
     - Test loading states render skeleton/spinner
     - Test empty states render appropriate messages
     - **Validates: Requirements 4.2, 4.3, 4.4, 4.5, 5.2, 5.3, 5.4, 5.5, 6.2, 6.3, 6.4, 6.5, 6.6, 7.2, 7.3, 7.4**
 
-- [ ] 7. Final checkpoint — Ensure all tests pass
+- [x] 7. Final checkpoint — Ensure all tests pass
   - Ensure all tests pass, ask the user if questions arise.
 
 ## Notes
